@@ -1,13 +1,99 @@
 <?xml version="1.0"?>
 <Devices>
-	<Device type="custom" id="teslacontrol">
-		<Name>Tesla Control Module</Name>
-		<ConfigUI>
-			<Field type="menu" id="car">
-				<Label>Car:</Label>
-				<!-- see http://wiki.indigodomo.com/doku.php?id=indigo_5_documentation:plugin_guide#dynamic_lists -->
-				<List class="self" filter="self" method="carListGenerator" />
-			</Field>
-		</ConfigUI>
-	</Device>
+    <Device type="custom" id="teslacontrol">
+        <Name>Tesla Control Module</Name>
+        <ConfigUI>
+            <Field type="menu" id="car">
+                <Label>Car:</Label>
+                <!-- see http://wiki.indigodomo.com/doku.php?id=indigo_5_documentation:plugin_guide#dynamic_lists -->
+                <List class="self" filter="self" method="carListGenerator"/>
+            </Field>
+            <Field id="vin" type="textfield" hidden="true" defaultValue=""/>
+            <Field id="car_version" type="textfield" hidden="true" defaultValue=""/>
+            <Field id="car_type" type="textfield" hidden="true" defaultValue=""/>
+            <Field id="vehicle_name" type="textfield" hidden="true" defaultValue=""/>
+            <Field id="wheel_type" type="textfield" hidden="true" defaultValue=""/>
+
+        </ConfigUI>
+        <States>
+            <State id="locked">
+                <ValueType>Boolean</ValueType>
+                <TriggerLabel>Car is Locked</TriggerLabel>
+                <ControlPageLabel>Car is Locked</ControlPageLabel>
+            </State>
+            <State id="plugged_in">
+                <ValueType>Boolean</ValueType>
+                <TriggerLabel>Car is plugged in</TriggerLabel>
+                <ControlPageLabel>Car is plugged in</ControlPageLabel>
+            </State>
+            <State id="charging_state">
+                <ValueType>String</ValueType>
+                <TriggerLabel>Charging State</TriggerLabel>
+                <ControlPageLabel>Charging State</ControlPageLabel>
+            </State>
+            <State id="charge_port_door_open">
+                <ValueType>Boolean</ValueType>
+                <TriggerLabel>Charge Port Open</TriggerLabel>
+                <ControlPageLabel>Charge Port Open</ControlPageLabel>
+            </State>
+            <State id="power">
+                <ValueType>Integer</ValueType>
+                <TriggerLabel>Power</TriggerLabel>
+                <ControlPageLabel>Power</ControlPageLabel>
+            </State>
+            <State id="timestamp">
+                <ValueType>Integer</ValueType>
+                <TriggerLabel>Last update timestamp</TriggerLabel>
+                <ControlPageLabel>Last update timestamp</ControlPageLabel>
+            </State>
+            <State id="longitude">
+                <ValueType>Integer</ValueType>
+                <TriggerLabel>longitude</TriggerLabel>
+                <ControlPageLabel>longitude</ControlPageLabel>
+            </State>
+            <State id="latitude">
+                <ValueType>Integer</ValueType>
+                <TriggerLabel>latitude</TriggerLabel>
+                <ControlPageLabel>latitude</ControlPageLabel>
+            </State>
+            <State id="heading">
+                <ValueType>Integer</ValueType>
+                <TriggerLabel>heading</TriggerLabel>
+                <ControlPageLabel>heading</ControlPageLabel>
+            </State>
+            <State id="speed">
+                <ValueType>Integer</ValueType>
+                <TriggerLabel>speed</TriggerLabel>
+                <ControlPageLabel>speed</ControlPageLabel>
+            </State>
+            <State id="gps_as_of">
+                <ValueType>Integer</ValueType>
+                <TriggerLabel>gps_as_of</TriggerLabel>
+                <ControlPageLabel>gps_as_of</ControlPageLabel>
+            </State>
+            <State id="shift_state">
+                <ValueType>Integer</ValueType>
+                <TriggerLabel>shift_state</TriggerLabel>
+                <ControlPageLabel>shift_state</ControlPageLabel>
+            </State>
+
+            <State id="outside_temp">
+                <ValueType>Integer</ValueType>
+                <TriggerLabel>Outside Temp</TriggerLabel>
+                <ControlPageLabel>Outside Temp</ControlPageLabel>
+            </State>
+            <State id="inside_temp">
+                <ValueType>Integer</ValueType>
+                <TriggerLabel>Inside Temp</TriggerLabel>
+                <ControlPageLabel>Inside Temp</ControlPageLabel>
+            </State>
+            <State id="is_climate_on">
+                <ValueType>Boolean</ValueType>
+                <TriggerLabel>Climate is on</TriggerLabel>
+                <ControlPageLabel>Climate is on</ControlPageLabel>
+            </State>
+        </States>
+        <UiDisplayStateId>plugged_in</UiDisplayStateId>
+
+    </Device>
 </Devices>
