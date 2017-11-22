@@ -87,46 +87,56 @@ class Plugin(indigo.PluginBase):
                             charge_state = vehicle.data_request('charge_state')
                             vehicle_state = vehicle.data_request('vehicle_state')
                             climate_state = vehicle.data_request('climate_state')
-                            # indigo.server.log(json.dumps(charge_state))
-                            # indigo.server.log(json.dumps(vehicle_state))
-                            # indigo.server.log(json.dumps(climate_state))
 
                             pluginProps['car_version'] = vehicle_state.get('car_version', "")
                             pluginProps['vin'] = vehicle['vin']
                             pluginProps['car_type'] = vehicle_state.get('car_type', "")
                             pluginProps['vehicle_name'] = vehicle_state.get('vehicle_name', "")
                             pluginProps['wheel_type'] = vehicle_state.get('wheel_type', "")
+                            #pluginProps['batteryLevel'] = 80
 
-                            keyValueList = []
+                            keyvaluelist = []
 
-                            if charge_state['charge_port_door_open']:
-                                keyValueList.append({'key': 'plugged_in', 'value': True})
+                            if charge_state['charging_state'] == "Disconnected":
+                                keyvaluelist.append({'key': 'plugged_in', 'value': False, 'uiValue': charge_state['charging_state']})
+                                dev.updateStateImageOnServer(indigo.kStateImageSel.PowerOff)
                             else:
-                                keyValueList.append({'key': 'plugged_in', 'value': False})
+                                keyvaluelist.append({'key': 'plugged_in', 'value': True, 'uiValue': charge_state['charging_state']})
+                                dev.updateStateImageOnServer(indigo.kStateImageSel.PowerOn)
 
-                            keyValueList.append({'key': 'charging_state', 'value': charge_state['charging_state']})
-                            keyValueList.append({'key': 'charge_port_door_open', 'value': charge_state['charge_port_door_open']})
+                            keyvaluelist.append({'key': 'charging_state', 'value': charge_state['charging_state']})
+                            keyvaluelist.append({'key': 'charge_port_door_open', 'value': charge_state['charge_port_door_open']})
 
                             # Store the Drive State API data
                             drive_state = vehicle.data_request('drive_state')
-                            # indigo.server.log(json.dumps(drive_state))
-                            keyValueList.append({'key': 'power', 'value': drive_state['power']})
-                            keyValueList.append({'key': 'timestamp', 'value': drive_state['timestamp']})
-                            keyValueList.append({'key': 'longitude', 'value': drive_state['longitude']})
-                            keyValueList.append({'key': 'latitude', 'value': drive_state['latitude']})
-                            keyValueList.append({'key': 'speed', 'value': drive_state['speed']})
-                            keyValueList.append({'key': 'heading', 'value': drive_state['heading']})
-                            keyValueList.append({'key': 'shift_state', 'value': drive_state['shift_state']})
+                            # Get the door state data
+                            keyvaluelist.append({'key': 'locked', 'value': vehicle_state['locked']})
+                            keyvaluelist.append({'key': 'df', 'value': vehicle_state['df']})
+                            keyvaluelist.append({'key': 'dr', 'value': vehicle_state['dr']})
+                            keyvaluelist.append({'key': 'pf', 'value': vehicle_state['pf']})
+                            keyvaluelist.append({'key': 'pr', 'value': vehicle_state['pr']})
+                            keyvaluelist.append({'key': 'ft', 'value': vehicle_state['ft']})
+                            keyvaluelist.append({'key': 'rt', 'value': vehicle_state['rt']})
 
-                            # Store the Vehicle API Data
-                            keyValueList.append({'key': 'locked', 'value': vehicle_state['locked']})
+                            keyvaluelist.append({'key': 'power', 'value': drive_state['power']})
+                            keyvaluelist.append({'key': 'timestamp', 'value': drive_state['timestamp']})
+                            keyvaluelist.append({'key': 'longitude', 'value': drive_state['longitude']})
+                            keyvaluelist.append({'key': 'latitude', 'value': drive_state['latitude']})
+                            keyvaluelist.append({'key': 'speed', 'value': drive_state['speed']})
+                            keyvaluelist.append({'key': 'heading', 'value': drive_state['heading']})
+                            keyvaluelist.append({'key': 'shift_state', 'value': drive_state['shift_state']})
 
                             # Store the Climate API Data
-                            keyValueList.append({'key': 'is_climate_on', 'value': climate_state['is_climate_on']})
-                            keyValueList.append({'key': 'outside_temp', 'value': 9.0/5.0 * climate_state['outside_temp'] + 32}) # We use F around here
-                            keyValueList.append({'key': 'inside_temp', 'value': 9.0/5.0 * climate_state['inside_temp'] + 32}) # We use F around here
+                            keyvaluelist.append({'key': 'is_climate_on', 'value': climate_state['is_climate_on']})
+                            keyvaluelist.append({'key': 'outside_temp', 'value': 9.0 / 5.0 * climate_state['outside_temp'] + 32})  # We use F around here
+                            keyvaluelist.append({'key': 'inside_temp', 'value': 9.0 / 5.0 * climate_state['inside_temp'] + 32})  # We use F around here
 
-                            dev.updateStatesOnServer(keyValueList)
+                            #dev.updateStateOnServer("charging_state", charge_state['charging_state'], uiValue=charge_state['charging_state'])
+                            #indigo.server.log("Charging State: {}".format(charge_state['charging_state']))
+                            #indigo.server.log("State: {}".format(dev.states))
+
+                            #dev.updateStatesOnServer(keyvaluelist, uiValue=charge_state['charging_state'])
+                            dev.updateStatesOnServer(keyvaluelist)
                             dev.replacePluginPropsOnServer(pluginProps)
 
                         except Exception as e:

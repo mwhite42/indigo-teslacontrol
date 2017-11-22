@@ -14,6 +14,14 @@
             <Field id="vehicle_name" type="textfield" hidden="true" defaultValue=""/>
             <Field id="wheel_type" type="textfield" hidden="true" defaultValue=""/>
 
+            <Field id="SupportsOnState" type="checkbox" hidden="true" defaultValue="true"/>
+            <Field id="SupportsSensorValue" type="checkbox" hidden="true" defaultValue="false"/>
+            <Field id="SupportsStatusRequest" type="checkbox" hidden="true" defaultValue="true"/>
+            <Field id="SupportsBatteryLevel" type="checkbox" hidden="false" defaultValue="false"/>
+            <Field id="AllowOnStateChange" type="checkbox" hidden="true" defaultValue="false"/>
+            <Field id="AllowSensorValueChange" type="checkbox" hidden="true" defaultValue="false"/>
+
+
         </ConfigUI>
         <States>
             <State id="locked">
@@ -91,6 +99,36 @@
                 <ValueType>Boolean</ValueType>
                 <TriggerLabel>Climate is on</TriggerLabel>
                 <ControlPageLabel>Climate is on</ControlPageLabel>
+            </State>
+            <State id="df">
+                <ValueType>Boolean</ValueType>
+                <TriggerLabel>Drivers side front door</TriggerLabel>
+                <ControlPageLabel>Drivers side front door</ControlPageLabel>
+            </State>
+            <State id="dr">
+                <ValueType>Boolean</ValueType>
+                <TriggerLabel>Drivers side rear door</TriggerLabel>
+                <ControlPageLabel>Drivers side rear door</ControlPageLabel>
+            </State>
+            <State id="pf">
+                <ValueType>Boolean</ValueType>
+                <TriggerLabel>Passenger side front door</TriggerLabel>
+                <ControlPageLabel>Passenger side front door</ControlPageLabel>
+            </State>
+            <State id="pr">
+                <ValueType>Boolean</ValueType>
+                <TriggerLabel>Passenger side rear door</TriggerLabel>
+                <ControlPageLabel>Passenger side rear door</ControlPageLabel>
+            </State>
+            <State id="ft">
+                <ValueType>Boolean</ValueType>
+                <TriggerLabel>Front Trunk</TriggerLabel>
+                <ControlPageLabel>Front Trunk</ControlPageLabel>
+            </State>
+            <State id="rt">
+                <ValueType>Boolean</ValueType>
+                <TriggerLabel>Rear Trunk</TriggerLabel>
+                <ControlPageLabel>Rear Trunk</ControlPageLabel>
             </State>
         </States>
         <UiDisplayStateId>plugged_in</UiDisplayStateId>
